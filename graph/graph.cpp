@@ -214,6 +214,8 @@ void SSSP_unw(){
     printf("\n");
 }
 
+// ********** DIJKTRA ALGORITHM **********//
+// O(E + VlogV)
 // SSSP in weighted grapth using Adjcent List
 void SSSP_wei(){
     vi dist(V, INF); dist[s] = 0; // INF = 1B to avoid overflow
@@ -231,5 +233,16 @@ void SSSP_wei(){
         }
     }
 }
+
+// ********** BELLMAN-FORD ALGORITHM **********//
+// O(V^3) using Adjacency Matrix
+// O(VE) using Adjacency List
+vi dist(V, INF); dist[s] = 0;
+for (int i = 0; i < V - 1; i++) // relax all E edges V-1 times
+	for (int u = 0; u < V; u++) // these two loops = O(E), overall O(VE)
+		for (int j = 0; j < (int)AdjList[u].size(); j++) {
+			ii v = AdjList[u][j]; // record SP spanning here if needed
+			dist[v.first] = min(dist[v.first], dist[u] + v.second); // relax
+		}
 
 //******************* FLOW *******************//
